@@ -236,10 +236,12 @@ if __name__ == "__main__":
     # Run the benchmarks with different parameters...
     data = list()
     for rp in bench_params(
-        num_workers=[1,],  # 2, 4, 8, 16, 24, 32, 48, 64],  # number of Dask workers
+        num_workers=[1,2, 4, 8, 16,], # 24, 32, 48, 64],  # number of Dask workers
         shots=[None, 0],  # number of shots to read (0 means all)
         signals=[None, 0],  # number of signals to read (0 means all)
     ):
+        print("="*80)
+        print("rp:", rp)
         # Keep only cases of interest...
         if (rp.shots is None and rp.signals is None) or (
             rp.shots is not None and rp.signals is not None

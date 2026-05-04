@@ -144,6 +144,7 @@ def gather_dset_info(h5f: h5py.File) -> dict[int, dict[str, Union[str, list[str]
         print("dataset:", name)
         if isinstance(h5obj, h5py.Dataset):
             if not h5obj.is_scale:
+                print("h5obj.attrs:", list(h5obj.attrs))
                 shots[h5obj.attrs["shot"]].append(h5obj.name)
 
     h5f.visititems(dset_info)
@@ -236,7 +237,7 @@ if __name__ == "__main__":
     # Run the benchmarks with different parameters...
     data = list()
     for rp in bench_params(
-        num_workers=[1,2, 4, 8, 16,], # 24, 32, 48, 64],  # number of Dask workers
+        num_workers=[1,2, 4, 8, 16, 24, 32, 48, 64],  # number of Dask workers
         shots=[None, 0],  # number of shots to read (0 means all)
         signals=[None, 0],  # number of signals to read (0 means all)
     ):
